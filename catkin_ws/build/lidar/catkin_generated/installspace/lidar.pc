@@ -1,0 +1,8 @@
+prefix=/home/zev/catkin_ws/install
+
+Name: lidar
+Description: Description of lidar
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/zev/catkin_ws/install/lib 
+Requires: 

@@ -1,0 +1,9 @@
+CORNER:
+Length = sqrt(10.25)
+Angle1 = 141
+Angle2 = 128.6
+
+BOX:
+13 X 13
+4 right anhgles
+

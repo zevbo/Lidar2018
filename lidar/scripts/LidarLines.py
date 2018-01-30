@@ -1,7 +1,7 @@
 import math
 linePrecision = 0.2
 measurment = 1
-maxAngle = 30
+maxAngle = 180
 def spot(angle): #Takes an angle and returns the place in the LIDAR point array which it's in
         return int(1/measurment * (angle + maxAngle))
 def tooRec(angle,l): #Converts a point of the form (theta,R) to (X,Y)
@@ -37,7 +37,13 @@ def allOnLine(points,startingAngle,endAngle,line): #Takes an array of LIDAR poin
         return startingAngle == endAngle
 def isLine(points,sA,eA): #Takes an array of LIDAR points and two angles to scan between and returns wether all of the angles in between fall on the same line
         return allOnLine(points,sA,eA,findLine(tooRecA(points,sA),tooRec(points,eA)))
-def lineEnd(points,ogPoint,angle,direction): #Scans backwards until it's no longer on the line
+
+
+def lineEnd(points,ogPoint,angle,direction):
+    angle = lineEndA(points,ogPoint,angle,direction)
+    return tooRecA(points,angle)
+
+def lineEndA(points,ogPoint,angle,direction): #Scans backwards until it's no longer on the line
         maxM = 100
 	minM = -100
 	while(angle >= 0 - maxAngle and angle < maxAngle and maxM > minM):
@@ -53,12 +59,12 @@ def lineEnd(points,ogPoint,angle,direction): #Scans backwards until it's no long
 			maxM = min(maxM,max(possibleMs))
 			minM = max(minM,min(possibleMs))
                 angle += direction * measurment
-        return tooRecA(points,angle - 2 * direction * measurment)
+        return angle - direction * measurment
 #def lineEndFor(points,ogPoint,angle): #Scans forwards until it's no longer on the line
 	#while(angle < maxAngle and onLine(line,angle,points[spot(angle)])):
         #        angle += measurment
         #return tooRecA(points,angle - measurment)
 
 def intersectionAngle(line1,line2): #Takes two lines of form (M,B) and returns the angle that their intersction makes
-        return math.degrees(math.atan(math.fabs(line1[0] * line2[0]))) * 2 
+        return math.degrees(math.atan((line1[0] - line2[0])/(1 + line1[0]*line2[0]))) 
 

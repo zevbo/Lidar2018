@@ -66,8 +66,8 @@ def callback(data):
         0
         #LD.displayPoints(data.ranges,time)
 def FindPowerBlocks():
-    msg = "sensor_msgs/LaserScan"
-    rospy.Subscriber("/scan",LaserScan,callback)
+    msg = "/scan"
+    rospy.Subscriber(msg,LaserScan,callback)
     rospy.spin()
 if __name__ == '__main__':
     rospy.init_node('FindPowerBlocks')
